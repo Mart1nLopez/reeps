@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import '../screens/home_screen.dart';
+import '../screens/exercises_screen.dart';
+import '../screens/statistics_screen.dart';
+import '../screens/add_workout_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -11,6 +15,7 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
+    const StatisticsScreen(),
   ];
 
   void _onTabTapped(int index) {
