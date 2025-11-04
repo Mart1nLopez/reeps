@@ -1,38 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../config/theme.dart';
-import 'register_screen.dart';
 import 'main_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
+  final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _isPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
 
   @override
   void dispose() {
+    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  void _login() {
-    // TODO: Implementar autenticación con Firebase
+  void _register() {
+    if (_passwordController.text != _confirmPasswordController.text) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Las contraseñas no coinciden')),
+      );
+      return;
+    }
+
+    // TODO: Implementar registro con Firebase
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const MainScreen()),
     );
   }
 
-  void _loginWithGoogle() {
-    // TODO: Implementar inicio de sesión con Google
+  void _registerWithGoogle() {
+    // TODO: Implementar registro con Google
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => const MainScreen()),
@@ -42,59 +53,40 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 40),
+              Text(
+                'Crear Cuenta',
+                style: Theme.of(context).textTheme.displaySmall,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'Comienza tu viaje fitness con Reeps',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
 
-              // Logo y título
-              Center(
-                child: Column(
-                  children: [
-                    Container(
-                      width: 80,
-                      height: 80,
-                      decoration: BoxDecoration(
-                        color: AppTheme.primaryPurple,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Center(
-                        child: SvgPicture.asset(
-                          'assets/images/logo.svg',
-                          width: 50,
-                          height: 50,
-                          colorFilter: const ColorFilter.mode(
-                            Colors.white,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      'Reeps',
-                      style: Theme.of(context).textTheme.displayLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Registra tu progreso en el gym',
-                      style: Theme.of(context).textTheme.bodyMedium,
-                    ),
-                  ],
+              const SizedBox(height: 32),
+
+              // Name
+              TextField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  hintText: 'Nombre completo',
+                  prefixIcon: Icon(Icons.person_outline),
                 ),
               ),
 
-              const SizedBox(height: 48),
-
-              Text(
-                'Iniciar Sesión',
-                style: Theme.of(context).textTheme.displaySmall,
-              ),
-
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
 
               // Email
               TextField(
@@ -130,28 +122,39 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
 
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
 
-              // Forgot Password
-              Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: () {
-                    // TODO: Implementar recuperar contraseña
-                  },
-                  child: const Text('¿Olvidaste tu contraseña?'),
+              // Confirm Password
+              TextField(
+                controller: _confirmPasswordController,
+                obscureText: !_isConfirmPasswordVisible,
+                decoration: InputDecoration(
+                  hintText: 'Confirmar contraseña',
+                  prefixIcon: const Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _isConfirmPasswordVisible
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                      });
+                    },
+                  ),
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 32),
 
-              // Login Button
+              // Register Button
               SizedBox(
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: _login,
-                  child: const Text('Iniciar Sesión'),
+                  onPressed: _register,
+                  child: const Text('Crear Cuenta'),
                 ),
               ),
 
@@ -179,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 width: double.infinity,
                 height: 56,
                 child: OutlinedButton.icon(
-                  onPressed: _loginWithGoogle,
+                  onPressed: _registerWithGoogle,
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: AppTheme.textSecondary),
                     shape: RoundedRectangleBorder(
@@ -200,26 +203,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
               const SizedBox(height: 24),
 
-              // Link de registro
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '¿No tienes cuenta? ',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text('Regístrate'),
-                  ),
-                ],
+              // Terminos y condiciones ?
+              Text(
+                'Al registrarte, aceptas nuestros Términos y Condiciones y Política de Privacidad',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
               ),
             ],
           ),
