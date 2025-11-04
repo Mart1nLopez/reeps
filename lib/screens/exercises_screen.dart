@@ -178,6 +178,12 @@ class _ExerciseCard extends StatelessWidget {
           color: AppTheme.textSecondary,
         ),
         onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ExerciseDetailScreen(exercise: exercise),
+            ),
+          );
         },
       ),
     );
