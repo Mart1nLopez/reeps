@@ -43,3 +43,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# CocoaPods (iOS) - exclude generated Pods directory (keep Podfile and Podfile.lock)
+/ios/Pods/
