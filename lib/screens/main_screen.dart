@@ -15,6 +15,7 @@ class _MainScreenState extends State<MainScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
+    const HomeScreen(),
     const StatisticsScreen(),
   ];
 
@@ -46,15 +47,16 @@ class _MainScreenState extends State<MainScreen> {
             label: 'Inicio',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center_outlined),
-            activeIcon: Icon(Icons.fitness_center),
-            label: 'Ejercicios',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_outlined),
             activeIcon: Icon(Icons.bar_chart),
             label: 'Estadísticas',
           ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center_outlined),
+            activeIcon: Icon(Icons.fitness_center),
+            label: 'Ejercicios',
+          ),
+          
         ],
       ),
     );
