@@ -27,6 +27,10 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   void _showAddWorkoutScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const AddWorkoutScreen()),
+    );
   }
 
   @override
