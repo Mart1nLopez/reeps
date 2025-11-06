@@ -113,13 +113,13 @@ class HomeScreen extends StatelessWidget {
                                 reservedSize: 30,
                                 getTitlesWidget: (value, meta) {
                                   const days = [
-                                    'L',
-                                    'M',
-                                    'X',
-                                    'J',
-                                    'V',
-                                    'S',
-                                    'D',
+                                    'Lu',
+                                    'Ma',
+                                    'Mi',
+                                    'Ju',
+                                    'Vi',
+                                    'Sa',
+                                    'Do',
                                   ];
                                   if (value.toInt() >= 0 &&
                                       value.toInt() < days.length) {
