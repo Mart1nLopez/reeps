@@ -1,61 +1,84 @@
 # Reeps - Gym Logger App
-Reeps es una aplicación móvil desarrollada en Flutter para el seguimiento del progreso en el gimnasio. Permite a los usuarios registrar sus entrenamientos (peso, repeticiones, sets), visualizar su historial y analizar su progreso a través de estadísticas y gráficos.
 
-### Características Principales
-* **Autenticación de Usuarios:** Sistema completo de inicio de sesión y registro usando Email/Contraseña y Google Sign-In, gestionado con Firebase Authentication.
- 
-* **Dashboard (Inicio):** Una pantalla principal (HomeScreen) que saluda al usuario, muestra un resumen de su actividad y un gráfico de progreso semanal usando fl_chart.
+Aplicación móvil para registrar y seguir el progreso en el gimnasio, desarrollada con Flutter.
 
-* **Registro de Entrenamientos:** Un formulario dedicado (AddWorkoutScreen) para registrar nuevos ejercicios, permitiendo seleccionar peso, repeticiones, sets y unidad (kg/lb).
+## Descripción
 
-* **Cálculo de Volumen:** Cálculo automático del volumen total (Sets × Reps × Peso) en la pantalla de registro para dar feedback inmediato al usuario.
+Reeps permite a los usuarios registrar entrenamientos (ejercicio, series, repeticiones, peso), visualizar el historial y obtener estadísticas gráficas del progreso. Está integrada con Firebase (Autenticación y Firestore) y usa un tema oscuro por defecto.
 
-* **Biblioteca de Ejercicios:** Una lista completa de ejercicios (ExercisesScreen) que se pueden filtrar por grupo muscular o buscar por nombre.
+Este README ofrece instrucciones rápidas para configurar, ejecutar y contribuir al proyecto.
 
-* **Detalle de Ejercicio:** Visualización del historial de registros para un ejercicio específico (ExerciseDetailScreen).
+### Características principales
 
-* **Estadísticas:** Gráficos que muestran la evolución del progreso a lo largo del tiempo (StatisticsScreen).
+- Autenticación (Email/Password y Google Sign-In) usando Firebase Auth.
+- Registro detallado de entrenamientos (sets, reps, peso, unidad).
+- Cálculo de volumen (sets × reps × peso) para cada entrada.
+- Biblioteca y búsqueda de ejercicios.
+- Pantallas de detalle por ejercicio con historial.
+- Estadísticas y gráficos de progreso (usa `fl_chart`).
+- Tema centralizado (modo oscuro)
 
-* **Gestión de Sesión:** Pantalla de configuración (SettingsScreen) con la capacidad de cerrar sesión.
+### Tecnologías
 
-* **Diseño Cohesivo:** Un tema oscuro (AppTheme) personalizado y centralizado que garantiza una estética consistente en toda la aplicación.
+- Flutter (SDK Dart)
+- Firebase Core / Auth / Firestore
+- fl_chart, intl, provider, flutter_svg
 
-### Cómo Probar la Aplicación
+### Requisitos
 
-Para ejecutar este proyecto en tu entorno local, necesitarás configurar Flutter y Firebase.
+- Flutter SDK (compatible con SDK especificado en `pubspec.yaml`, p. ej. SDK >= 3.9.x).
+- Android Studio / Xcode para emuladores o un dispositivo físico.
+- Cuenta de Firebase para integrar autenticación y Firestore (ver sección de configuración).
 
-**Prerrequisitos**
+## Instalación y Ejecución
 
-* SDK de Flutter (versión 3.29.0 o superior).
-* Un emulador de Android/iOS o un dispositivo físico.
+1. Clona el repositorio:
 
+```sh
+git clone https://github.com/TheLucasBenji/reeps.git
+cd reeps
+```
 
-**Instalación y Ejecución**
+2. Instala dependencias de Flutter:
 
-1.  **Clonar el repositorio:**
-    ```bash
-    git clone https://github.com/TheLucasBenji/reeps.git
-    cd reeps
-    ```
+```sh
+flutter pub get
+```
 
-2.  **Obtener dependencias de Flutter:**
-    ```bash
-    flutter pub get
-    ```
+3. (Opcional) Instala íconos y splash si deseas regenerarlos localmente:
 
-4.  **Ejecutar la aplicación:**
-    ```bash
-    flutter run
-    ```
+```sh
+flutter pub run flutter_launcher_icons:main
+flutter pub run flutter_native_splash:create
+```
 
+## Ejecutar la app
 
-### Decisiones de Diseño
-Varias decisiones de arquitectura y diseño se tomaron para dar forma a la aplicación:
+Para lanzar la app en un emulador o dispositivo conectado:
 
-**1. Tema y UI**
-Dark Mode por Defecto: Se optó por un diseño Dark Mode (lib/config/theme.dart). Esta decisión se basa en que las aplicaciones de fitness se usan frecuentemente en gimnasios, que pueden tener iluminación variable; un tema oscuro reduce la fatiga visual y es estéticamente coherente con el sector.
-Tema Centralizado: En lugar de definir colores y estilos en cada pantalla, se creó un AppTheme. Esto asegura que todos los Card, AppBar, Button y fuentes sean consistentes (ej. primaryPurple) y permite un rediseño rápido modificando un solo archivo.
+```bash
+flutter run
+```
 
+Para compilar una APK de Android (release):
+
+```bash
+flutter build apk --release
+```
+
+Para compilar iOS (desde macOS con Xcode configurado):
+
+```bash
+flutter build ios --release
+```
+
+### Estructura relevante del proyecto
+
+- `lib/` – Código fuente principal.
+- `lib/screens/` – Pantallas como `home_screen.dart`, `add_workout_screen.dart`, etc.
+- `lib/models/` – Modelos de datos (`exercise.dart`, `workout_record.dart`).
+- `lib/config/theme.dart` – Tema centralizado de la app.
+- `assets/` – Imágenes y recursos.
 
 
 ### Dependencias Clave
